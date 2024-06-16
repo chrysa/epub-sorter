@@ -1,8 +1,8 @@
 # Définition du chemin vers le script Python
-$scriptPath = ".\e_pub_order.py"
+$scriptPath = "main.py"
 
 # Construction de l'exécutable avec PyInstaller
-& pyinstaller.exe --onefile $scriptPath
+& pyinstaller.exe --onefile $scriptPath --name "epub-sorter"
 
 # Vérification de l'existence du dossier dist après la construction
 if (Test-Path -Path ".\dist") {

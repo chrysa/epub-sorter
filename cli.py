@@ -5,8 +5,8 @@ from common import Common
 
 class Cli(Common):
     def __init__(self, args):
-        super().__init__(epub_path=args.epub_path)
         self.args = args
+        super().__init__(epub_path=args.epub_path)
 
     def author_group(self):
         file_list = self.get_processed_epub()
@@ -27,7 +27,7 @@ class Cli(Common):
             suffix=self.progress_suffix,
         ) as bar:
             for epub in self.epub_list:
-                super().extract_metadata()
+                super().extract_metadata(epub=epub)
                 bar.next()
 
     def find_duplicate_by_identifier(self):
@@ -56,6 +56,7 @@ class Cli(Common):
                 for duplicate in duplicate_list:
                     duplicate["is_duplicate"] = True
                     path = self.duplicate_folder / duplicate["path"].name
+                    self.duplicate_folder.mkdir(parents=True, exist_ok=True)
                     duplicate["path"].rename(path)
                     duplicate["path"] = path
                 bar.next()

@@ -29,10 +29,16 @@ def main():
         help="Duplicate folder path",
     )
     parser.add_argument(
+        "--skipped-folder",
+        type=Path,
+        default="[skipped]",
+        help="Skipped folder path",
+    )
+    parser.add_argument(
         "--failed-folder", type=Path, default="[failed]", help="Failed folder path",
     )
     parser.add_argument("--cli", action="store_true", help="Launch cli interface (override --gui)")
-    parser.add_argument("--gui", action="store_false", help="Launch GUI interface (default)")
+    parser.add_argument("--gui", action="store_true", help="Launch GUI interface (default)")
     parser.add_argument("-r", "--rename-file", action="store_true", dest="rename_file")
     parser.add_argument("--update-all", action="store_true", dest="update")
     parser.add_argument(
@@ -43,10 +49,10 @@ def main():
     )
 
     args = parser.parse_args()
-    if args.gui and not args.cli:
-        instance = Gui(args)
-    else:
+    if args.cli:
         instance = Cli(args)
+    elif args.gui:
+        instance = Gui(args)
     instance.run()
 
 
