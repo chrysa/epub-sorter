@@ -1,3 +1,4 @@
+import sys
 import argparse
 import csv
 import time
@@ -9,25 +10,32 @@ import ebookmeta
 from progress.bar import IncrementalBar
 
 
-CSV_HEADER =  ["is_duplicate","is_failed","path","identifier","title","file","author"]
-
 @dataclass
 class Epub:
+    epub_path: Path
+    epub_list: list[Path] = field(default_factory=list)
+    duplicate_folder: Path = Path() / "[duplicates]"
+    failed_folder: Path = Path() / "[failed]"
     csv_exclude_header: list[str] = field(default_factory=list)
     csv_header: list[str] = field(default_factory=list)
     csv_output: Path = Path() / "epub_metadata.csv"
     data: list[dict] = field(default_factory=list)
-    duplicate_folder: Path = Path() / "[duplicates]"
     duplicates: list[tuple[Path, str]] = field(default_factory=list)
-    epub_list: list[Path] = field(default_factory=list)
-    epub_path: Path = Path()
-    failed_folder: Path = Path() / "[failed]"
+    identifier_list: list[str] = field(default_factory=list)
     processed_folder: Path = Path() / "[processed]"
     progress_suffix: str = "[%(index)d/%(max)d] - [%(percent)d%%]"
 
     def __post_init__(self):
         self.epub_list = []
-        self.csv_header = CSV_HEADER
+        self.csv_header = [
+            "is_duplicate",
+            "is_failed",
+            "path",
+            "identifier",
+            "title",
+            "file",
+            "author",
+        ]
         self.data = []
         self.duplicates = []
         self.identifier_list = []
@@ -242,17 +250,23 @@ class Epub:
 
 def main():
     parser = argparse.ArgumentParser(description="Epub Orderer")
+    parser.add_argument("--epub-path", type=str, help="Path to the epub folder", dest="epub_path",default=Path().cwd())
+    parser.add_argument("-r", "--rename-file", action="store_true", dest="rename_file")
     parser.add_argument("--update-all", action="store_true", dest="update")
     parser.add_argument(
         "-a", "--update-author", action="store_true", dest="update_author"
     )
-    parser.add_argument("-r", "--rename-file", action="store_true", dest="rename_file")
     parser.add_argument(
         "-t", "--update-title", action="store_true", dest="update_title"
     )
+    
     args = parser.parse_args()
 
-    instance = Epub()
+    if args.epub_path is not None:
+        epub_path = Path(args.epub_path)
+    else:
+        epub_path = Path(__file__).parent
+    instance = Epub(epub_path=epub_path)
     instance.detect_epubs()
     if instance.epub_list:
         instance.extract_metadata()
