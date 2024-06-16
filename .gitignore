@@ -3,3 +3,5 @@
 /dist
 /e_pub_order.spec
 /Livre pas trier + doublons disque adrian*
+\[*\]
+*.py[co]
