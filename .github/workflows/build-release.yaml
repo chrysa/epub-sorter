@@ -1,11 +1,12 @@
 ---
+name: build exe and release
 on:
   push:
     branches: 
       - main
     paths:
       - '**.py'
-
+  workflow_dispatch:
 jobs:
   build-on-windows:
     runs-on: windows-latest
