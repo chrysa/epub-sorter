@@ -31,7 +31,7 @@ jobs:
       run: |
         pyinstaller --onefile --noconsole main.py --name "epub-sorter"
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v7
       with:
         name: e_opub_order_windows
         path: .\dist\e_opub_order.exe
