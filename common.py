@@ -2,7 +2,6 @@ import csv
 from dataclasses import dataclass
 from dataclasses import field
 from pathlib import Path
-from typing import Any
 
 import ebookmeta
 
@@ -33,9 +32,9 @@ class Common:
         self.duplicates = []
         self.identifier_list = []
         self.duplicate_folder: Path = Path() / self.args.duplicate_folder
-        self.failed_folder: Path = Path() /  self.args.failed_folder
-        self.processed_folder: Path = Path() /  self.args.processed_folder
-        self.skipped_folder: Path = Path() /  self.args.skipped_folder
+        self.failed_folder: Path = Path() / self.args.failed_folder
+        self.processed_folder: Path = Path() / self.args.processed_folder
+        self.skipped_folder: Path = Path() / self.args.skipped_folder
 
     @staticmethod
     def _find_empty_folders():
@@ -54,7 +53,7 @@ class Common:
         self.epub_list = list(self.epub_path.rglob("*.epub"))
         # print(f"{len(self.epub_list):,} epubs founds")
 
-    def extract_metadata(self,*,epub):
+    def extract_metadata(self, *, epub):
         if epub.is_file() and epub.parent not in [
             self.duplicate_folder,
             self.failed_folder,
@@ -64,7 +63,7 @@ class Common:
             is_failed: bool = False
             try:
                 metadata = ebookmeta.get_metadata(epub.as_posix())
-            except:
+            except Exception:
                 path = self.failed_folder / epub.name
                 self.failed_folder.mkdir(parents=True, exist_ok=True)
                 epub.rename(path)
@@ -114,18 +113,22 @@ class Common:
         epub.rename(author_folder / epub.name)
         self.update_data(identifier=metadata.identifier, path=author_folder / epub.name)
 
-    def rename_file(self,*, epub):
+    def rename_file(self, *, epub):
         metadata = ebookmeta.get_metadata(epub.as_posix())
-        if (self.processed_folder / f"{metadata.title.replace(',','_').replace(' ','_')}.{epub.suffix}").exists():
+        if (
+            self.processed_folder
+            / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}"
+        ).exists():
             self.processed_skipped.mkdir(parents=True, exist_ok=True)
             epub.rename(
-                self.processed_skipped / f"{metadata.title.replace(',','_').replace(' ','_')}.{epub.suffix}",
+                self.processed_skipped
+                / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}",
             )
         else:
             self.processed_folder.mkdir(parents=True, exist_ok=True)
             epub.rename(
                 self.processed_folder
-                / f"{metadata.title.replace(',','_').replace(' ','_')}.{epub.suffix}",
+                / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}",
             )
 
     def update_data(self, *, identifier, metadata=None, path=None):

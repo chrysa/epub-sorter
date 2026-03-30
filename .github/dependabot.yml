@@ -1,34 +1,32 @@
-version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "ci(deps)"
-    labels:
-      - "dependencies"
-
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "dependencies"
-
-  - package-ecosystem: "pre-commit"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore(deps)"
-    labels:
-      - "dependencies"
+- commit-message:
+    prefix: ci(deps)
+  directory: /
+  labels:
+  - dependencies
+  open-pull-requests-limit: 5
+  package-ecosystem: github-actions
+  schedule:
+    day: monday
+    interval: weekly
+- commit-message:
+    prefix: chore(deps)
+  directory: /
+  labels:
+  - dependencies
+  open-pull-requests-limit: 5
+  package-ecosystem: pip
+  schedule:
+    day: monday
+    interval: weekly
+- commit-message:
+    prefix: chore(deps)
+  directory: /
+  labels:
+  - dependencies
+  open-pull-requests-limit: 5
+  package-ecosystem: pre-commit
+  schedule:
+    day: monday
+    interval: weekly
+version: 2

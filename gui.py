@@ -1,5 +1,4 @@
 import tkinter as tk
-from pathlib import Path
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter import ttk
@@ -25,14 +24,17 @@ class Gui(Common):
         self.create_widgets()
 
     def create_widgets(self):
-        self.epub_path_input=tk.Label(self.root, text="Epub Path:").grid(row=0, column=0, sticky="w")
+        self.epub_path_input = tk.Label(self.root, text="Epub Path:").grid(
+            row=0, column=0, sticky="w"
+        )
         tk.Entry(
             self.root,
             textvariable=tk.StringVar(value=str(self.args.epub_path)),
             width=50,
         ).grid(row=0, column=1, columnspan=2)
         tk.Button(self.root, text="Browse", command=self.browse_epub_path).grid(
-            row=0, column=3,
+            row=0,
+            column=3,
         )
         tk.Label(self.root, text="Output CSV:").grid(row=1, column=0, sticky="w")
         tk.Entry(
@@ -67,23 +69,33 @@ class Gui(Common):
             width=50,
         ).grid(row=5, column=1, columnspan=2)
         tk.Checkbutton(
-            self.root, text="Rename Files", variable=self.rename_file_var,
+            self.root,
+            text="Rename Files",
+            variable=self.rename_file_var,
         ).grid(row=6, column=0, sticky="w")
         tk.Checkbutton(
-            self.root, text="Update All Metadata", variable=self.update_var,
+            self.root,
+            text="Update All Metadata",
+            variable=self.update_var,
         ).grid(row=6, column=1, sticky="w")
         tk.Checkbutton(
-            self.root, text="Update Author Metadata", variable=self.update_author_var,
+            self.root,
+            text="Update Author Metadata",
+            variable=self.update_author_var,
         ).grid(row=6, column=2, sticky="w")
         # tk.Checkbutton(self.root, text="Update Title Metadata", variable=self.update_title_var).grid(row=6, column=3, sticky="w")
         tk.Label(self.root, text="Files Processed:").grid(row=7, column=0, sticky="w")
         tk.Label(self.root, textvariable=self.files_processed).grid(
-            row=7, column=1, columnspan=3, sticky="w",
+            row=7,
+            column=1,
+            columnspan=3,
+            sticky="w",
         )
         self.total_files_label = tk.Label(self.root, text="Total Files: 0")
         self.total_files_label.grid(row=8, column=0, sticky="w")
         self.current_file_index_label = tk.Label(
-            self.root, text="Current File Index: 0",
+            self.root,
+            text="Current File Index: 0",
         )
         self.current_file_index_label.grid(row=8, column=1, columnspan=3, sticky="w")
 
@@ -91,17 +103,24 @@ class Gui(Common):
         self.current_step_label.grid(row=9, column=0, columnspan=4, pady=5)
 
         self.progress_bar = ttk.Progressbar(
-            self.root, orient="horizontal", length=400, mode="determinate",
+            self.root,
+            orient="horizontal",
+            length=400,
+            mode="determinate",
         )
         self.progress_bar.grid(row=10, column=0, columnspan=4, pady=10)
 
         tk.Button(self.root, text="Run Processing", command=self.run_processing).grid(
-            row=11, column=1, columnspan=2,
+            row=11,
+            column=1,
+            columnspan=2,
         )
 
     def browse_epub_path(self):
-        if (folder_selected := filedialog.askdirectory()):
-            self.epub_path_inputself.epub_path_inputself.epub_path_input.set(folder_selected)
+        if folder_selected := filedialog.askdirectory():
+            self.epub_path_inputself.epub_path_inputself.epub_path_input.set(
+                folder_selected
+            )
 
     def find_duplicate_by_identifier(self):
         duplicate_list = []
@@ -123,7 +142,7 @@ class Gui(Common):
                     self.duplicate_folder.mkdir(parents=True, exist_ok=True)
                     duplicate["path"].rename(path)
                     duplicate["path"] = path
-            self.update_progress(index=index,total_files=len(self.identifier_list))
+            self.update_progress(index=index, total_files=len(self.identifier_list))
 
     def remove_empty_folders(self):
         empty_folders = self._find_empty_folders()
@@ -141,14 +160,14 @@ class Gui(Common):
             for index, epub in enumerate(self.epub_list):
                 self.current_step.set("extract metadata")
                 self.extract_metadata(epub=epub)
-                self.update_progress(index=index,total_files=total_files)
+                self.update_progress(index=index, total_files=total_files)
             self.find_duplicate_by_identifier()
-            index=0
+            index = 0
             if self.update_var.get() or self.rename_file_var.get():
                 for epub in self.processed_folder.rglob("*.epub"):
                     self.current_step.set("rename")
                     self.rename_file(epub=epub)
-                self.update_progress(index=index,total_files=total_files)
+                self.update_progress(index=index, total_files=total_files)
             self.generate_csv()
             self.remove_empty_folders()
             self.files_processed.set("Processed {len(self.epub_list)} files")
@@ -163,7 +182,8 @@ class Gui(Common):
             messagebox.showinfo("Processing Complete", "EPUB processing is complete.")
         else:
             messagebox.showwarning(
-                "No EPUBs Found", "No EPUB files were found in the specified path.",
+                "No EPUBs Found",
+                "No EPUB files were found in the specified path.",
             )
 
     def update_progress(self, index, total_files):
