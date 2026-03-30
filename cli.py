@@ -78,51 +78,10 @@ class Cli(Common):
             suffix=self.progress_suffix,
         ) as bar:
             for epub in self.processed_folder.rglob("*.epub"):
-                self.rename_file(epub=epub)
-                bar.next()
-
-    def remove_empty_folder(self):
-        empty_folders = self._find_empty_folders()
-        with IncrementalBar(
-            "Remove Empty Folder",
-            max=len(empty_folders),
-            suffix=self.progress_suffix,
-        ) as bar:
-            for folder in sorted(empty_folders, reverse=True):
-                folder.rmdir()
-                bar.next()
-
-    def update_authors(self):
-        file_list = self.get_processed_epub()
-        with IncrementalBar(
-            "Update Author",
-            max=len(file_list),
-            suffix=self.progress_suffix,
-        ) as bar:
-            for epub in file_list:
-                metadata = self.get_meatadata(epub=epub)
-                print(f"\n{epub} actual author list")
-                for author in metadata.author_list:
-                    print(f"\t - {author}")
-                change_author = input("Change author? [Y/n] [n] ")
-                if change_author in ["y", "Y"]:
-                    name = input("New value: ")
-                    metadata.set_author_list_from_string(name)
-                    self.update_data(identifier=metadata.identifier, metadata=metadata)
-                bar.next()
-
-    def rename_file(self):
-        file_list = self.get_processed_epub()
-        with IncrementalBar(
-            "Rename File",
-            max=len(file_list),
-            suffix=self.progress_suffix,
-        ) as bar:
-            for epub in self.processed_folder.rglob("*.epub"):
                 metadata = self.get_metadata(epub=epub.as_posix())
                 epub.rename(
                     self.processed_folder
-                    / f"{metadata.title.replace(',','_').replace(' ','_')}.{epub.suffix}",
+                    / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}",
                 )
                 bar.next()
 
