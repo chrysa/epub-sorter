@@ -1,70 +1,63 @@
----
-name: CI
-
-on:
-    pull_request:
-        branches:
-            - main
-    push:
-        branches:
-            - feature/**
-            - fix/**
-            - chore/**
-            - main
-    workflow_dispatch:
-
+true:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - chore/**
+    - feature/**
+    - fix/**
+    - main
+  workflow_dispatch: null
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
-
-permissions:
-    contents: read
-
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-    pre-commit:
-        name: Pre-commit checks
-        runs-on: ubuntu-latest
-        timeout-minutes: 15
-        steps:
-            - uses: actions/checkout@v6
-            - uses: actions/setup-python@v5
-              with:
-                  python-version: '3.14'
-                  cache: pip
-            - uses: pre-commit/action@v3.0.1
-
-    ruff:
-        name: Ruff lint
-        runs-on: ubuntu-latest
-        timeout-minutes: 10
-        steps:
-            - uses: actions/checkout@v6
-            - uses: actions/setup-python@v5
-              with:
-                  python-version: '3.14'
-                  cache: pip
-            - name: Install ruff
-              run: pip install ruff
-            - name: Run ruff check
-              run: ruff check .
-            - name: Run ruff format check
-              run: ruff format --check .
-
-    build:
-        name: Build Windows executable
-        runs-on: windows-latest
-        timeout-minutes: 20
-        steps:
-            - uses: actions/checkout@v6
-            - uses: actions/setup-python@v5
-              with:
-                  python-version: '3.12'
-            - name: Install dependencies
-              run: pip install -r requirements.txt
-            - name: Build with PyInstaller
-              run: pyinstaller --onefile --noconsole main.py --name epub-sorter
-            - uses: actions/upload-artifact@v4
-              with:
-                  name: epub-sorter-windows
-                  path: dist/epub-sorter.exe
-                  retention-days: 7
+  build:
+    name: Build Windows executable
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Build with PyInstaller
+      run: pyinstaller --onefile --noconsole main.py --name epub-sorter
+    - uses: actions/upload-artifact@v4
+      with:
+        name: epub-sorter-windows
+        path: dist/epub-sorter.exe
+        retention-days: 7
+    timeout-minutes: 20
+  pre-commit:
+    name: Pre-commit checks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v5
+      with:
+        cache: pip
+        python-version: '3.14'
+    - uses: pre-commit/action@v3.0.1
+    timeout-minutes: 15
+  ruff:
+    name: Ruff lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v5
+      with:
+        cache: pip
+        python-version: '3.14'
+    - name: Install ruff
+      run: pip install ruff
+    - name: Run ruff check
+      run: ruff check .
+    - name: Run ruff format check
+      run: ruff format --check .
+    timeout-minutes: 10
+name: CI
+permissions:
+  contents: read
