@@ -1,4 +1,4 @@
 ebookmeta==1.2.11
-progress==1.6
+progress==1.6.1
 pyinstaller==6.3.0 # https://datatofish.com/executable-pyinstaller/
 tk==0.1.0
