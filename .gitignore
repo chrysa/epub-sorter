@@ -5,3 +5,7 @@
 /Livre pas trier + doublons disque*
 \[*\]
 *.py[co]
+
+# Sonar
+sonar-project.properties
+.sonar/
