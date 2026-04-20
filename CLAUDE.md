@@ -1,74 +1,39 @@
-# epub-sorter — Claude context
+# CLAUDE.md — epub-sorter
 
-## What does this project do?
+## Project
 
-Python tool for organizing and deduplicating EPUB ebook libraries. Reads EPUB metadata (author, title, identifier) and performs:
-- **Group by author**: renames/moves files into `Author/` directories
-- **Extract metadata**: dumps metadata CSV/JSON for inspection
-- **Find duplicates by identifier**: detects duplicate EPUBs via ISBN/UUID metadata
-- **GUI mode**: Tkinter-based desktop interface (compiled to `.exe` via PyInstaller on Windows)
-- **CLI mode**: `cli.py` entry point with progress bars
+**Name:** epub-sorter
+**Stack:** Python
+**Purpose:** [![CI](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml/badge.svg)](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml).
 
-## Tech stack
+## Working Rules
 
-| Layer | Tech |
-|---|---|
-| Language | Python 3 |
-| EPUB metadata | ebookmeta 1.2.11 |
-| Progress display | progress 1.6.1 |
-| GUI | tkinter (stdlib) |
-| Packaging | PyInstaller 6.19 (`.exe` build) |
-| Linting | ruff |
-| CI | GitHub Actions |
-| Pre-commit | pre-commit hooks |
-| Versioning | GitVersion |
+- Language: English for code, comments, docs, issues and PRs.
+- Commits: Conventional Commits (`type(scope): description`).
+- Prefer repository make targets when a Makefile is available.
+- Read `.github/instructions/*.instructions.md` when present before starting task-specific work.
 
-## Repository structure
+## Claude Compatibility
 
-```
-cli.py          CLI entry point (uses Common base class)
-gui.py          Tkinter GUI entry point
-main.py         Script entry point / arg parser
-common.py       Base class: get_processed_epub, get_metadata, rename_author, extract_metadata
-requirements.txt
-build.ps1       PowerShell script to build .exe via PyInstaller
-Makefile
-GitVersion.yml
-.pre-commit-config.yaml
-cliff.toml      Changelog generator config
-```
+- Claude Code hooks are configured in `.claude/settings.json`.
+- Shared hooks, thresholds and skills are vendored from `chrysa/shared-standards` into this repository.
+- Keep repository-specific overrides in this file and keep generic automation in `.claude/`.
 
-## Development workflow
+## Read Order
 
-```bash
-pip install -r requirements.txt
+1. `~/.claude/CLAUDE.md` (private user preferences)
+2. `CLAUDE.md` (this repository)
+3. `.github/copilot-instructions.md`
+4. `.github/instructions/*.instructions.md` when present
 
-# CLI usage
-python main.py --epub-path /path/to/epub/folder <command>
+## Available Skills
 
-# Available commands (from cli.py):
-#   author_group            — group EPUBs into Author/ directories
-#   extract_metadata        — dump metadata
-#   find_duplicate_by_identifier  — find duplicates by ISBN/UUID
+Local Claude skills in `.claude/skills/`:
+- `testing-pytest` for Python test work
+- `dockerfile-multistage` for Dockerfile authoring
+- `api-design` for REST and FastAPI/API design tasks
 
-# Build Windows executable
-pwsh build.ps1
-```
+## Repository Notes
 
-## Key conventions
-
-- `Common` base class in `common.py` contains all filesystem + metadata logic
-- `Cli` and `Gui` classes inherit from `Common`
-- Progress bars via `IncrementalBar` from the `progress` package
-- `get_processed_epub()` returns filtered EPUB file list from `self.epub_path`
-- `get_metadata(epub)` calls `ebookmeta.get_metadata(filepath)`
-- `rename_author(epub, metadata)` builds `Author/` directory path from metadata
-
-## Notes / known issues
-
-- No README description yet — `README.md` has `TODO: Add description`
-- Windows-only for GUI mode (win11toast not applicable here; Tkinter is used)
-- PyInstaller 6.19 — check for updates before next release
-- No unit tests currently
-- ruff configured but no `ruff.toml` — uses tool defaults
-- SonarCloud not configured
+- Add repository-specific architecture, operational constraints, or domain rules here when needed.
+- If this repository needs extra Claude skills, add them under `.claude/skills/`.
