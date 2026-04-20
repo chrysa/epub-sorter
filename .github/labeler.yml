@@ -1,0 +1,111 @@
+Api:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/api/**'
+    - '**/api_urls.py'
+    - '**/routes/**'
+    - '**/endpoints/**'
+    - '**/routers/**'
+Auth:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/auth/**'
+    - '**/authentication/**'
+    - '**/*oauth*'
+    - '**/*login*'
+Ci:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/workflows/**
+    - .github/actions/**
+Configurations:
+- changed-files:
+  - any-glob-to-any-file:
+    - pyproject.toml
+    - package.json
+    - tsconfig.json
+    - .editorconfig
+    - GitVersion.yml
+Database:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/migrations/**'
+    - '**/alembic/**'
+    - '**/models/**'
+    - '**/schema*.sql'
+    - '**/db-schema.dbml'
+Dockerfile:
+- changed-files:
+  - any-glob-to-any-file:
+    - Dockerfile*
+    - docker-compose*.yml
+    - .dockerignore
+Frontend:
+- changed-files:
+  - any-glob-to-any-file:
+    - src/components/**
+    - src/pages/**
+    - src/hooks/**
+    - app/src/**
+    - '**/*.tsx'
+    - '**/*.jsx'
+    - '**/*.css'
+Makefiles:
+- changed-files:
+  - any-glob-to-any-file:
+    - Makefile
+    - makefiles/**
+Pre-commit:
+- changed-files:
+  - any-glob-to-any-file:
+    - .pre-commit-config.yaml
+    - .pre-commit-hooks.yaml
+Security:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/security/**'
+    - .secrets.baseline
+dependencies/actions:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/workflows/**
+dependencies/docker:
+- changed-files:
+  - any-glob-to-any-file:
+    - Dockerfile
+    - docker-compose*.yml
+dependencies/node:
+- changed-files:
+  - any-glob-to-any-file:
+    - package.json
+    - pnpm-lock.yaml
+    - package-lock.json
+    - yarn.lock
+dependencies/python:
+- changed-files:
+  - any-glob-to-any-file:
+    - pyproject.toml
+    - poetry.lock
+    - requirements*.txt
+docs:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/*.md'
+    - docs/**
+i18n:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/i18n/**'
+    - '**/locales/**'
+    - '**/*.po'
+    - '**/translations/**'
+test:
+- changed-files:
+  - any-glob-to-any-file:
+    - '**/tests/**'
+    - '**/test_*.py'
+    - '**/*_test.py'
+    - '**/*.test.ts'
+    - '**/*.test.tsx'
+    - '**/*.spec.ts'
+    - '**/conftest.py'
