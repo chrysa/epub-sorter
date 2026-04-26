@@ -9,6 +9,10 @@ Python tool for organizing and deduplicating EPUB ebook libraries. Reads EPUB me
 - **GUI mode**: Tkinter-based desktop interface (compiled to `.exe` via PyInstaller on Windows)
 - **CLI mode**: `cli.py` entry point with progress bars
 
+
+## Language Rules
+
+- Language: English — all code, comments, documentation, instructions, and configuration files must be in English.
 ## Tech stack
 
 | Layer | Tech |
