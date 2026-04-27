@@ -17,8 +17,8 @@ jobs:
     name: Build Windows executable
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6.2.0
       with:
         python-version: '3.12'
     - name: Install dependencies
@@ -35,8 +35,8 @@ jobs:
     name: Pre-commit checks
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6.2.0
       with:
         cache: pip
         python-version: '3.14'
@@ -46,8 +46,8 @@ jobs:
     name: Ruff lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6.2.0
       with:
         cache: pip
         python-version: '3.14'
