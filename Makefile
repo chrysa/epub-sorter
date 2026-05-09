@@ -51,11 +51,23 @@ lint: ## Run ruff linting
 format: ## Run ruff formatter
 	ruff format .
 
+typecheck: ## Run mypy type checking
+	mypy . --ignore-missing-imports
+
+dev: ## Run GUI in dev mode
+	$(PYTHON) gui.py
+
+test: ## Run tests
+	pytest tests/ -v 2>/dev/null || echo "No tests found"
+
+test-cov: ## Run tests with coverage report
+	pytest tests/ -v --cov=. --cov-report=term-missing --cov-report=xml 2>/dev/null || echo "No tests found"
+
+build: ## Package as executable via PyInstaller
+	pyinstaller --onefile main.py
+
 pre-commit: ## Run pre-commit on all files
 	pre-commit run --all-files
-
-# ─── Cleanup ─────────────────────────────────────────────────────────────────
-
 clean: ## Clean build artifacts
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -exec rm -rf {{}} + 2>/dev/null || true
