@@ -47,19 +47,18 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - uses: actions/setup-python@v6
+            - uses: chrysa/github-actions/python-setup@v1
               with:
                   python-version: "3.14"
-                  cache: pip
 
             - name: Install ruff
               run: pip install ruff
 
-            - name: Run ruff check
-              run: ruff check .
-
-            - name: Run ruff format check
-              run: ruff format --check .
+            - uses: chrysa/github-actions/ruff-check@v1
+              with:
+                  python-version: "3.14"
+                  latest-python: "3.14"
+                  sources: .
 
     build:
         name: Build Windows executable
