@@ -27,6 +27,6 @@ repos:
   - id: python-pprint-detection
   - id: python-unreachable-code
   - id: yaml-sorter
-    exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|\.pre-commit-config\.yaml)
+    exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|\.pre-commit-config\.yaml|GitVersion\.yml)
   repo: https://github.com/chrysa/pre-commit-tools
   rev: v0.1.1-73
