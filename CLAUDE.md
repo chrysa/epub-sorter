@@ -1,5 +1,7 @@
 # epub-sorter — Claude context
 
+> **Claude Code**: also read `.github/copilot-instructions.md` and `.github/instructions/*.instructions.md` for code specifications.
+
 ## What does this project do?
 
 Python tool for organizing and deduplicating EPUB ebook libraries. Reads EPUB metadata (author, title, identifier) and performs:
