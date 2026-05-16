@@ -60,6 +60,10 @@ dev: ## Run GUI in dev mode
 test: ## Run tests
 	pytest tests/ -v 2>/dev/null || echo "No tests found"
 
+docker-test: ## Run tests inside Docker (CI-compatible)
+	docker build -f Dockerfile.test -t epub-sorter-test .
+	docker run --rm epub-sorter-test
+
 test-cov: ## Run tests with coverage report
 	pytest tests/ -v --cov=. --cov-report=term-missing --cov-report=xml 2>/dev/null || echo "No tests found"
 
