@@ -11,5 +11,4 @@
 *.py[co]
 
 # Sonar
-sonar-project.properties
 .sonar/
