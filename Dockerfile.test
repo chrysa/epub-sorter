@@ -1,0 +1,20 @@
+FROM python:3.14-slim AS deps
+
+WORKDIR /app
+
+RUN pip install --upgrade pip setuptools wheel
+
+COPY requirements.txt ./
+RUN pip install ebookmeta==1.2.11 progress==1.6.1
+RUN pip install "pytest>=8.0" "pytest-cov>=5.0"
+
+FROM deps AS test
+
+COPY . .
+
+ENV PYTHONPATH=/app
+
+CMD ["pytest", "--cov=.", "--cov-branch", \
+     "--cov-report=xml:coverage.xml", \
+     "--cov-report=term-missing", \
+     "--ignore=gui.py", "--ignore=main.py"]

@@ -64,6 +64,7 @@ class Common:
             try:
                 metadata = ebookmeta.get_metadata(epub.as_posix())
             except Exception:
+                metadata = None
                 path = self.failed_folder / epub.name
                 self.failed_folder.mkdir(parents=True, exist_ok=True)
                 epub.rename(path)
