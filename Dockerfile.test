@@ -15,6 +15,6 @@ COPY . .
 ENV PYTHONPATH=/app
 
 CMD ["pytest", "--cov=.", "--cov-branch", \
-     "--cov-report=xml:coverage.xml", \
-     "--cov-report=term-missing", \
-     "--ignore=gui.py", "--ignore=main.py"]
+    "--cov-report=xml:coverage.xml", \
+    "--cov-report=term-missing", \
+    "--ignore=gui.py", "--ignore=main.py"]
