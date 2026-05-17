@@ -27,15 +27,22 @@ jobs:
         name: SonarCloud scan
         runs-on: ubuntu-latest
         timeout-minutes: 15
+        needs: []
         steps:
             - name: Checkout
               uses: actions/checkout@v6
               with:
                   fetch-depth: 0
             - name: SonarCloud scan
-              uses: chrysa/github-actions/sonar-scan@v1
+              uses: chrysa/github-actions/sonar-scan-python@v1
               with:
+                  python-version: "3.14"
                   sonar-token: ${{ secrets.SONAR_TOKEN }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   project-key: chrysa_epub-sorter
+                  organization: chrysa
+                  project-name: epub-sorter
                   sources: .
                   tests: tests
+                  coverage-report: reports/coverage.xml
+                  junit-report: reports/junit.xml
