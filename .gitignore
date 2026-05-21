@@ -12,3 +12,6 @@
 
 # Sonar
 .sonar/
+
+# CodeGraph (local index — never commit)
+.codegraph/
