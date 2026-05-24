@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=70", "wheel"]
+requires = ["setuptools>=82.0.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,7 @@ version = "0.1.0"
 requires-python = ">=3.14"
 
 [project.optional-dependencies]
-test = ["pytest>=8.0", "pytest-cov>=5.0"]
+test = ["pytest>=9.0.3", "pytest-cov>=7.1.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
