@@ -28,6 +28,11 @@ repos:
   - id: python-unreachable-code
   - id: yaml-sorter
     exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|\.pre-commit-config\.yaml|GitVersion\.yml)
+  - id: adr-gate
+  - id: no-bare-except
+  - id: python-logger-detection
+  - id: no-sync-in-async
+  - id: debugger-detection
   - id: regression-gate
     stages:
     - pre-push
