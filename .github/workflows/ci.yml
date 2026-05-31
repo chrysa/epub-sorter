@@ -14,7 +14,6 @@ on:
             - "ci/**"
             - "feature/**"
             - "fix/**"
-    workflow_dispatch:
 
 permissions:
     checks: write
