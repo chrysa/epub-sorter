@@ -1,3 +1,4 @@
+# makefile-tier: lib
 #!make
 ifneq (,)
 	$(error This Makefile requires GNU Make)
