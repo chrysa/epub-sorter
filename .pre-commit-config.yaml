@@ -7,12 +7,18 @@ repos:
   - id: trailing-whitespace
   - id: end-of-file-fixer
   - id: check-yaml
-    args: [--allow-multiple-documents]
+    args:
+    - --allow-multiple-documents
     exclude: ^\.github/ISSUE_TEMPLATE/
   - id: check-toml
   - id: debug-statements
   - id: check-merge-conflict
   - id: detect-private-key
+  - id: check-json
+  - args:
+    - --branch
+    - main
+    id: no-commit-to-branch
   repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
 - hooks:
@@ -36,9 +42,13 @@ repos:
   - id: regression-gate
     stages:
     - pre-push
+  - id: json-sorter
+  - id: env-file-check
+  - id: env-example-sync
+  - id: no-hardcoded-localhost
+    exclude: tests?/|\.test\.|\.spec\.
   repo: https://github.com/chrysa/pre-commit-tools
   rev: v0.1.1-92
-
 - hooks:
   - args:
     - feat
@@ -56,3 +66,15 @@ repos:
     - commit-msg
   repo: https://github.com/compilerla/conventional-pre-commit
   rev: v4.4.0
+- repo: https://github.com/igorshubovych/markdownlint-cli
+  rev: v0.48.0
+  hooks:
+  - args:
+    - --fix
+    id: markdownlint
+    stages:
+    - manual
+- repo: https://github.com/gitleaks/gitleaks
+  rev: v8.30.0
+  hooks:
+  - id: gitleaks
