@@ -74,9 +74,9 @@ jobs:
                   python-version: "3.14"
                   sonar-token: ${{ secrets.SONAR_TOKEN }}
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  project-key: chrysa_target
+                  project-key: chrysa_epub-sorter
                   organization: chrysa
-                  project-name: target
-                  sources: .
+                  project-name: epub-sorter
+                  sources: cli.py,common.py,gui.py,main.py
                   tests: tests
                   coverage-report: coverage.xml
