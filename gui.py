@@ -149,6 +149,13 @@ class Gui(Common):
         for folder in sorted(empty_folders, reverse=True):
             folder.rmdir()
 
+    def _run_author_grouping(self):
+        """Group processed EPUBs by author when the relevant option is enabled."""
+        self.current_step.set("group by author")
+        file_list = self.get_processed_epub()
+        for epub in file_list:
+            self.group_author(epub=epub)
+
     def run_processing(self):
         self.current_step.set("detect epubs")
         self.detect_epubs()
@@ -174,11 +181,7 @@ class Gui(Common):
             self.files_processed_count.set(len(self.epub_list))
             self.progress_bar.stop()
             if self.update_var.get() or self.update_author_var.get():
-                self.current_step.set("group by author")
-                file_list = self.get_processed_epub()
-                for epub in file_list:
-                    self.group_author(epub=epub)
-
+                self._run_author_grouping()
             messagebox.showinfo("Processing Complete", "EPUB processing is complete.")
         else:
             messagebox.showwarning(

@@ -20,14 +20,17 @@ class Cli(Common):
                 self.rename_author(epub=epub, metadata=metadata)
                 bar.next()
 
-    def extract_metadata(self):
+    def extract_metadata(self, *, epub=None):
+        if epub is not None:
+            super().extract_metadata(epub=epub)
+            return
         with IncrementalBar(
             "Extract Metadata",
             max=len(self.epub_list),
             suffix=self.progress_suffix,
         ) as bar:
-            for epub in self.epub_list:
-                super().extract_metadata(epub=epub)
+            for item in self.epub_list:
+                super().extract_metadata(epub=item)
                 bar.next()
 
     def find_duplicate_by_identifier(self):
@@ -70,18 +73,21 @@ class Cli(Common):
             )
             print(summary_message)
 
-    def rename_file(self):
+    def rename_file(self, *, epub=None):
+        if epub is not None:
+            super().rename_file(epub=epub)
+            return
         file_list = self.get_processed_epub()
         with IncrementalBar(
             "Rename File",
             max=len(file_list),
             suffix=self.progress_suffix,
         ) as bar:
-            for epub in self.processed_folder.rglob("*.epub"):
-                metadata = self.get_metadata(epub=epub.as_posix())
-                epub.rename(
+            for item in self.processed_folder.rglob("*.epub"):
+                metadata = self.get_metadata(epub=item.as_posix())
+                item.rename(
                     self.processed_folder
-                    / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}",
+                    / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{item.suffix}",
                 )
                 bar.next()
 
