@@ -10,9 +10,9 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v7.0.1
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v7.0.0
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -25,7 +25,7 @@ jobs:
       run: 'pyinstaller --onefile --noconsole main.py --name "epub-sorter"
 
         '
-    - uses: actions/upload-artifact@v7
+    - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: e_opub_order_windows
         path: .\dist\e_opub_order.exe
@@ -39,14 +39,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-    - uses: actions/download-artifact@v8
+    - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
       with:
         path: ./
     - env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       id: create_release
       name: Create github release
-      uses: actions/create-release@v1
+      uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # v1
       with:
         draft: false
         prerelease: false
@@ -55,7 +55,7 @@ jobs:
     - env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       name: Upload windows artifact to github release
-      uses: actions/upload-release-asset@v1
+      uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
       with:
         asset_content_type: application
         asset_name: e_opub_order_windows.exe
