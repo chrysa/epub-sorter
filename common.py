@@ -120,9 +120,9 @@ class Common:
             self.processed_folder
             / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}"
         ).exists():
-            self.processed_skipped.mkdir(parents=True, exist_ok=True)
+            self.skipped_folder.mkdir(parents=True, exist_ok=True)
             epub.rename(
-                self.processed_skipped
+                self.skipped_folder
                 / f"{metadata.title.replace(',', '_').replace(' ', '_')}.{epub.suffix}",
             )
         else:

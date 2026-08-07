@@ -64,14 +64,14 @@ class Cli(Common):
                     duplicate["path"] = path
                 bar.next()
 
-        def get_summary(self):
-            summary_message = (
-                f"{len(list(self.duplicate_folder.rglob('*.epub')))} duplicates\n"
-                f"{len(list(self.failed_folder.rglob('*.epub')))} failed\n"
-                f"{len(list(self.processed_folder.rglob('*.epub')))} processed\n"
-                f"{len(list(self.processed_folder.iterdir()))} authors in processed"
-            )
-            print(summary_message)
+    def get_summary(self):
+        summary_message = (
+            f"{len(list(self.duplicate_folder.rglob('*.epub')))} duplicates\n"
+            f"{len(list(self.failed_folder.rglob('*.epub')))} failed\n"
+            f"{len(list(self.processed_folder.rglob('*.epub')))} processed\n"
+            f"{len(list(self.processed_folder.iterdir()))} authors in processed"
+        )
+        print(summary_message)
 
     def rename_file(self, *, epub=None):
         if epub is not None:

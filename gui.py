@@ -24,12 +24,11 @@ class Gui(Common):
         self.create_widgets()
 
     def create_widgets(self):
-        self.epub_path_input = tk.Label(self.root, text="Epub Path:").grid(
-            row=0, column=0, sticky="w"
-        )
+        tk.Label(self.root, text="Epub Path:").grid(row=0, column=0, sticky="w")
+        self.epub_path_var = tk.StringVar(value=str(self.args.epub_path))
         tk.Entry(
             self.root,
-            textvariable=tk.StringVar(value=str(self.args.epub_path)),
+            textvariable=self.epub_path_var,
             width=50,
         ).grid(row=0, column=1, columnspan=2)
         tk.Button(self.root, text="Browse", command=self.browse_epub_path).grid(
@@ -118,15 +117,13 @@ class Gui(Common):
 
     def browse_epub_path(self):
         if folder_selected := filedialog.askdirectory():
-            self.epub_path_inputself.epub_path_inputself.epub_path_input.set(
-                folder_selected
-            )
+            self.epub_path_var.set(folder_selected)
 
     def find_duplicate_by_identifier(self):
         duplicate_list = []
         index = 0
         for identifier in self.identifier_list:
-            self.current_step.set("find duplicate for {identifier}")
+            self.current_step.set(f"find duplicate for {identifier}")
             if self.identifier_list.count(identifier) > 1:
                 duplicate_list.extend(
                     [
@@ -154,7 +151,8 @@ class Gui(Common):
         self.current_step.set("group by author")
         file_list = self.get_processed_epub()
         for epub in file_list:
-            self.group_author(epub=epub)
+            metadata = self.get_metadata(epub=epub)
+            self.rename_author(epub=epub, metadata=metadata)
 
     def run_processing(self):
         self.current_step.set("detect epubs")
@@ -177,7 +175,7 @@ class Gui(Common):
                 self.update_progress(index=index, total_files=total_files)
             self.generate_csv()
             self.remove_empty_folders()
-            self.files_processed.set("Processed {len(self.epub_list)} files")
+            self.files_processed.set(f"Processed {len(self.epub_list)} files")
             self.files_processed_count.set(len(self.epub_list))
             self.progress_bar.stop()
             if self.update_var.get() or self.update_author_var.get():

@@ -67,7 +67,7 @@ def main():
     args = parser.parse_args()
     if args.cli:
         instance = Cli(args)
-    elif args.gui:
+    else:
         instance = Gui(args)
     instance.run()
 
