@@ -6,13 +6,18 @@ build-backend = "setuptools.build_meta"
 name = "epub-sorter"
 version = "0.1.0"
 requires-python = ">=3.14"
+dependencies = [
+    "ebookmeta==1.2.11",
+    "progress==1.6.1",
+]
 
 [project.optional-dependencies]
-test = ["pytest>=9.1.1", "pytest-cov>=7.1.0"]
+test = ["pytest>=9.1.1", "pytest-cov>=7.1.0", "pytest-mock>=3.14.0"]
+build = ["pyinstaller==6.21.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short --cov-fail-under=80"
+addopts = "-v --tb=short --cov-fail-under=85"
 
 [tool.coverage.run]
 source = ["common.py"]
