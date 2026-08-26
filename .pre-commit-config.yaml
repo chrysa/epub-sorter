@@ -36,7 +36,7 @@ repos:
         exclude: '(^|/)tests?/|^(README\.md|docs/)|(^|/)quality_gate\.py$|^\.claude/ape/'
       - id: python-unreachable-code
       - id: yaml-sorter
-        exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|\.pre-commit-config\.yaml|GitVersion\.yml)
+        exclude: ^(\.github/|workflows/|templates/|docker-compose)|(^|/)(pnpm-lock|yarn|uv|poetry)\.(yaml|lock)$|(^|/)\.pre-commit-config\.yaml$
       - id: adr-gate
       - id: no-bare-except
       - id: python-logger-detection
