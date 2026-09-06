@@ -106,6 +106,7 @@ This project is indexed by GitNexus as **epub-sorter** (0 symbols, 0 relationshi
 ### Security, identity & sessions · `standards/rules/security.md`
 - Per-person data implies a user account — no exceptions dressed up as simplicity
 - Identity goes through the cluster SSO first
+- Rights are resolved against the common directory (LDAP), never re-declared per service
 - A session is secured and it expires
 - Every form is a hostile input surface — validate on the server, always
 - Security scanning is a gate, not an afterthought — it runs in pre-commit and in CI
