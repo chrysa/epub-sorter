@@ -1,0 +1,32 @@
+{
+  "adrs": [],
+  "contracts": [
+    "standards"
+  ],
+  "ddd_level": "(not available)",
+  "dependencies": {
+    "python": [
+      "ebookmeta",
+      "progress",
+      "pyinstaller",
+      "pytest",
+      "pytest-cov",
+      "pytest-mock"
+    ]
+  },
+  "depends_on_shared_standards": true,
+  "description": "[![CI](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml/badge.svg)](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml)",
+  "entry_points": [],
+  "key_directories": [
+    ".claude",
+    ".github",
+    ".gitnexus",
+    "docs",
+    "scripts",
+    "standards",
+    "tests"
+  ],
+  "name": "epub-sorter",
+  "profiles": [],
+  "schema": "chrysa.context-map/1"
+}
