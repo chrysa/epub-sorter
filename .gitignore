@@ -18,3 +18,7 @@
 graphify
 sys
 graphify-out/
+# graphify artifacts (keep architecture diagram only)
+graphify-out/*
+!graphify-out/architecture.json
+!graphify-out/architecture.html
