@@ -106,7 +106,6 @@ epub-sorter — technical digest
     action-check.yml
     approved-label.yml
     auto-assign.yml
-    auto-update-pre-commit.yml
     build-release.yaml
     ci.yml
     dependabot-auto-merge.yml
@@ -152,6 +151,7 @@ opencode.json
 pyproject.toml
 requirements.txt
 scripts/
+  gen_context_files.py
   quality_gate.py
 sonar-project.properties
 standards/
@@ -193,5 +193,6 @@ cli.py
 common.py
 gui.py
 main.py
+scripts/gen_context_files.py — Generate the standardised per-repo context files from the repo's own content.
 scripts/quality_gate.py
 tests/test_common.py — Tests for epub-sorter common module.
