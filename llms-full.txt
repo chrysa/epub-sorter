@@ -19,6 +19,10 @@ epub-sorter — technical digest
     general-solution-architect.md
     general-technical-project-lead.md
     general-technical-writer.md
+  ape/
+    README.md
+    ape-transform-v2.md
+    ape_hook.py
   commands/
     adr-new.md
     commit.md
@@ -30,7 +34,9 @@ epub-sorter — technical digest
   hooks/
     check-no-env-files.cjs
     circuit-breaker.cjs
+    claude-config-drift.cjs
     frustration-detection.cjs
+    graphify-auto-update.cjs
     memory-consolidation.cjs
     model-debt-inventory.cjs
     secret-scanner.cjs
@@ -58,7 +64,12 @@ epub-sorter — technical digest
       SKILL.md
     dockerfile-multistage/
       SKILL.md
+    epub-sample-fixtures/
+      SKILL.md
+      scripts/
     error-handling/
+      SKILL.md
+    gen-tests-cli-gui/
       SKILL.md
     gitnexus/
       gitnexus-cli/
@@ -126,9 +137,11 @@ epub-sorter — technical digest
 .gitnexus/
   lbug
   meta.json
+.mcp.json
 .pre-commit-config.yaml
 .quality-gate.json
 AGENTS.md
+ARCHITECTURE.md
 CHANGELOG.md
 CLAUDE.md
 CODEOWNERS
@@ -160,6 +173,7 @@ standards/
     README.md
     accessibility.md
     agents.md
+    ai-orchestration.md
     api.md
     architecture.md
     backend-python.md
@@ -190,6 +204,8 @@ version: 0.1.0
 
 ## Modules
 
+.claude/ape/ape_hook.py
+.claude/skills/epub-sample-fixtures/scripts/make_test_epub.py — Generate a minimal EPUB file with controlled metadata, for tests.
 cli.py
 common.py
 gui.py
