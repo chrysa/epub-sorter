@@ -1,49 +1,19 @@
-# epub-sorter — GitHub Copilot Instructions
+---
+name: skills
+description: "Procedure: Skills. Use when this procedure is needed."
+---
 
-## Mandatory Workflow
+Shared skills from `shared-standards/.claude/skills/`:
 
-1. Read `.github/instructions/*.instructions.md` when present.
-2. Read `CLAUDE.md` for repository context.
-3. Follow repository-local conventions before writing code.
+- `ui-ux/SKILL.md` — UX/UI/ergonomics across ALL surfaces (web, CLI, VS Code, Discord, desktop, game, agent) + WCAG 2.1 AA + dark mode + i18n FR+EN (load when building any human-facing surface)
 
-## Project Context
 
-**Stack:** Python
-**Purpose:** [![CI](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml/badge.svg)](https://github.com/chrysa/epub-sorter/actions/workflows/ci.yml).
+<!-- chrysa:standards:start · managed by distribute-standards.sh · DO NOT EDIT -->
+# chrysa — Transverse Standards (core)
 
-## Engineering Rules
+> The **slim always-on core**. The canonical, tool-agnostic source of truth is `standards/STANDARDS.chrysa.md`; the normative annexes live under `standards/annexes/`. Each rule below is a one-line pointer — its full text lives in the per-domain file named beside the heading (`standards/rules/<domain>.md`), read on demand.
 
-- Write in English: code, comments, docs, issues, PRs and commits.
-- Keep changes minimal and aligned with the existing style.
-- Do not add unrelated refactors or speculative improvements.
-- Prefer make targets when available instead of invoking tooling ad hoc.
-- Never commit secrets, credentials or environment-specific values.
-
-## Canonical Templates & Shared Tooling
-
-### React applications
-- All new React apps **must** be bootstrapped from `Forge-Stack-Workshop/react-app-generator`.
-- Never scaffold from scratch or from `create-react-app`/`vite` directly.
-
-### Makefiles
-- All project Makefiles **must** extend or be derived from `Forge-Stack-Workshop/base-makefile`.
-- Do not duplicate targets that already exist in the base — inherit instead.
-
-### Pre-commit hooks
-- If a required hook is missing from `chrysa/pre-commit-tools`, **open an issue** on that repo describing the hook needed before proceeding.
-- In the requesting repo, open a matching issue/PR and mark it as dependent (`Depends on chrysa/pre-commit-tools#<N>`).
-- Do not implement a workaround locally — wait for the hook to land in the shared repo.
-
-### Issue resolution automation (desired workflow)
-- When a blocking issue is opened (e.g. missing hook, missing template), an agent should:
-  1. Analyse the issue and propose a solution on the upstream repo.
-  2. Once the solution is validated (human approval), automatically unblock the dependent issue/PR in the requesting repo.
-- This workflow is aspirational — track automation gaps as issues on the relevant repos.
-
-<!-- chrysa:standards-copilot:start · generated · DO NOT EDIT -->
-## chrysa standards (generated)
-
-> The same rules as `CLAUDE.md`, for GitHub Copilot. Detail loads on demand from `standards/rules/<domain>.md`; the canon is `standards/STANDARDS.chrysa.md`.
+**Where an annexe and the canon disagree, the canon wins.**
 
 ### Governance, language & compliance · `standards/rules/governance.md`
 - Normative annexes
@@ -129,6 +99,14 @@
 - Quality gates
 - Error handling pattern (all automations)
 
+### Product surfaces · `standards/rules/product.md`
+- A public web surface is legally compliant, consent-respecting, and operable — before it ships
+- Setup wizard & config panel
+- A game is DRM-free and fully playable solo offline
+- Every product that is operated ships a management backoffice
+- If a user can supply a file, the product accepts an upload
+- A floating assistant where it earns its place — never as decoration
+
 ### Backend Python · `standards/rules/backend-python.md`
 - Python packaging — `pyproject.toml` is the single source of truth
 - Python is written object-oriented, one class per file
@@ -158,13 +136,6 @@
 - `.dockerignore` mandatory & exhaustive
 - Container-runtime policy
 
-### Product surfaces · `standards/rules/product.md`
-- Setup wizard & config panel
-- A game is DRM-free and fully playable solo offline
-- Every product that is operated ships a management backoffice
-- If a user can supply a file, the product accepts an upload
-- A floating assistant where it earns its place — never as decoration
-
 ### Design system · `standards/rules/design.md`
 - Design system
 
@@ -176,4 +147,7 @@
 - Release & changelog config (canonical)
 - GitHub Actions (reuse first · custom actions centralised · thin workflows)
 - Pre-commit & git hooks (native, via pre-commit.com — never wrapped in make)
-<!-- chrysa:standards-copilot:end -->
+
+### Local AI orchestration & local-first · `standards/rules/ai-orchestration.md`
+- AI orchestration & local-first
+<!-- chrysa:standards:end -->
