@@ -13,6 +13,18 @@
             "timeout": 5000
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-compact.sh"
+            ],
+            "timeout": 10
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -36,6 +48,19 @@
             "name": "check-no-env-files",
             "timeout": 5000,
             "type": "command"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/read_guard.py"
+            ],
+            "timeout": 10
           }
         ]
       }
@@ -98,6 +123,20 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/session-context.sh"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "attribution": {
@@ -125,9 +164,9 @@
       "Bash(rtk ruff check *)",
       "Bash(rtk ruff format *)",
       "Bash(rtk mypy *)",
-      "Bash(rtk uv run pytest *)",
-      "Bash(rtk uv run ruff *)",
-      "Bash(rtk uv run mypy *)",
+      "Bash(uv run pytest *)",
+      "Bash(uv run ruff *)",
+      "Bash(uv run mypy *)",
       "Bash(rtk uv sync *)",
       "Bash(rtk gh pr view *)",
       "Bash(rtk gh pr list *)",
@@ -207,5 +246,6 @@
       "Read(**/*.min.js)",
       "Read(**/*.map)"
     ]
-  }
+  },
+  "model": "haiku"
 }
