@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "effortLevel": "medium",
+  "effortLevel": "low",
   "autoCompact": true,
   "autoCompactThreshold": 0.85,
   "hooks": {
@@ -207,5 +207,6 @@
       "Read(**/*.min.js)",
       "Read(**/*.map)"
     ]
-  }
+  },
+  "model": "haiku"
 }
