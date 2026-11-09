@@ -16,14 +16,6 @@ epub-sorter — technical digest
     README.md
     ape-transform-v2.md
     ape_hook.py
-  commands/
-    adr-new.md
-    commit.md
-    custom-init.md
-    help-commands.md
-    issue.md
-    reviewpr.md
-    test.md
   hooks/
     check-no-env-files.cjs
     circuit-breaker.cjs
@@ -33,7 +25,10 @@ epub-sorter — technical digest
     graphify-auto-update.cjs
     memory-consolidation.cjs
     model-debt-inventory.cjs
+    pre-compact.sh
+    read_guard.py
     secret-scanner.cjs
+    session-context.sh
     verifiable-thresholds.cjs
   settings.json
   skills/
@@ -108,6 +103,9 @@ epub-sorter — technical digest
       SKILL.md
     verification-loop/
       SKILL.md
+.codex/
+  rules/
+    prism-ai-lint.rules
 .editorconfig
 .env.example
 .gitattributes
@@ -222,6 +220,7 @@ version: 0.1.0
 
 .claude/ape/ape_hook.py
 .claude/hooks/format.py
+.claude/hooks/read_guard.py
 .claude/skills/epub-sample-fixtures/scripts/make_test_epub.py — Generate a minimal EPUB file with controlled metadata, for tests.
 cli.py
 common.py
