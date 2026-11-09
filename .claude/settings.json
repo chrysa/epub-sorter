@@ -1,40 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "effortLevel": "medium",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "autoCompact": true,
   "autoCompactThreshold": 0.85,
+  "effortLevel": "medium",
   "hooks": {
-    "PreCompact": [
+    "Notification": [
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/pre-compact.sh",
-            "timeout": 5000
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scanner.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
-            "name": "secret-scanner",
-            "timeout": 10000
-          },
-          {
-            "type": "command",
-            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/circuit-breaker.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
-            "name": "circuit-breaker",
-            "timeout": 5000
-          },
-          {
-            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/check-no-env-files.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
-            "name": "check-no-env-files",
-            "timeout": 5000,
+            "command": "notify-send 'Claude Code' 'En attente de ton input' 2>/dev/null || true",
+            "timeout": 3000,
             "type": "command"
           }
         ]
@@ -42,26 +21,101 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Write|Edit",
         "hooks": [
           {
-            "type": "command",
             "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/verifiable-thresholds.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
             "name": "verifiable-thresholds",
-            "timeout": 10000
+            "timeout": 10000,
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      },
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/format.py"
+            ],
+            "command": "python3",
+            "timeout": 30,
+            "type": "command"
+          }
+        ],
+        "matcher": "Edit|Write"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/pre-compact.sh",
+            "timeout": 5000,
+            "type": "command"
           }
         ]
       },
       {
-        "matcher": "Edit|Write",
         "hooks": [
           {
-            "type": "command",
-            "command": "python3",
             "args": [
-              "${CLAUDE_PROJECT_DIR}/.claude/hooks/format.py"
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/pre-compact.sh"
             ],
-            "timeout": 30
+            "command": "bash",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scanner.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
+            "name": "secret-scanner",
+            "timeout": 10000,
+            "type": "command"
+          },
+          {
+            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/circuit-breaker.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
+            "name": "circuit-breaker",
+            "timeout": 5000,
+            "type": "command"
+          },
+          {
+            "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/check-no-env-files.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
+            "name": "check-no-env-files",
+            "timeout": 5000,
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/read_guard.py"
+            ],
+            "command": "python3",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "Read"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/session-context.sh"
+            ],
+            "command": "bash",
+            "timeout": 10,
+            "type": "command"
           }
         ]
       }
@@ -70,10 +124,10 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/frustration-detection.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
             "name": "frustration-detection",
-            "timeout": 5000
+            "timeout": 5000,
+            "type": "command"
           }
         ]
       },
@@ -87,23 +141,9 @@
         ],
         "matcher": "*"
       }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "notify-send 'Claude Code' 'En attente de ton input' 2>/dev/null || true",
-            "timeout": 3000
-          }
-        ]
-      }
     ]
   },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
+  "model": "haiku",
   "permissions": {
     "allow": [
       "Bash(rtk git status *)",
@@ -136,7 +176,15 @@
       "Bash(rtk gh issue view *)",
       "Bash(rtk gh issue list *)",
       "Bash(rtk gh run list *)",
-      "Bash(rtk gh run view *)"
+      "Bash(rtk gh run view *)",
+      "Bash(make build)",
+      "Bash(make format)",
+      "Bash(make help)",
+      "Bash(make lint)",
+      "Bash(make test)",
+      "Bash(make typecheck)",
+      "Bash(python -m pytest *)",
+      "Bash(mypy *)"
     ],
     "ask": [
       "Bash(git push *)",
@@ -182,7 +230,13 @@
       "Bash(rtk docker push *)",
       "Bash(rtk npm publish *)",
       "Bash(rtk twine upload *)",
-      "Bash(rtk rm -rf *)"
+      "Bash(rtk rm -rf *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(make dev *)",
+      "Bash(rtk git add *)",
+      "Bash(rtk git commit *)",
+      "Bash(rtk make dev *)"
     ],
     "deny": [
       "Read(**/.env)",
