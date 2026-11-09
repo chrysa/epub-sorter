@@ -19,6 +19,7 @@
   "entry_points": [],
   "key_directories": [
     ".claude",
+    ".codex",
     ".github",
     ".gitnexus",
     "docs",
