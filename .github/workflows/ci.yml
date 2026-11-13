@@ -90,7 +90,7 @@ jobs:
                   project-key: chrysa_epub-sorter
                   organization: chrysa
                   project-name: epub-sorter
-                  sources: epub_sorter
+                  sources: .
                   tests: tests
                   # Downloaded from the test-results-3.14 artifact into reports/
                   # by the action; matches sonar-scan-python's default path.
