@@ -10,16 +10,6 @@ epub-sorter — technical digest
 .claude/
   agents/
     code-reviewer.md
-    general-backend-developer.md
-    general-code-quality-debugger.md
-    general-devops.md
-    general-frontend-developer.md
-    general-fullstack-developer.md
-    general-pm.md
-    general-qa.md
-    general-solution-architect.md
-    general-technical-project-lead.md
-    general-technical-writer.md
     security-auditor.md
     test-runner.md
   ape/
@@ -35,7 +25,10 @@ epub-sorter — technical digest
     graphify-auto-update.cjs
     memory-consolidation.cjs
     model-debt-inventory.cjs
+    pre-compact.sh
+    read_guard.py
     secret-scanner.cjs
+    session-context.sh
     verifiable-thresholds.cjs
   settings.json
   skills/
@@ -110,6 +103,9 @@ epub-sorter — technical digest
       SKILL.md
     verification-loop/
       SKILL.md
+.codex/
+  rules/
+    prism-ai-lint.rules
 .editorconfig
 .env.example
 .gitattributes
@@ -164,6 +160,7 @@ CLAUDE.md
 CODEOWNERS
 CONTRIBUTING.md
 DECISIONS.md
+DESIGN.md
 Dockerfile.test
 GitVersion.yml
 LICENSE
@@ -223,6 +220,7 @@ version: 0.1.0
 
 .claude/ape/ape_hook.py
 .claude/hooks/format.py
+.claude/hooks/read_guard.py
 .claude/skills/epub-sample-fixtures/scripts/make_test_epub.py — Generate a minimal EPUB file with controlled metadata, for tests.
 cli.py
 common.py
