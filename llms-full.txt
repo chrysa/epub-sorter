@@ -16,6 +16,14 @@ epub-sorter — technical digest
     README.md
     ape-transform-v2.md
     ape_hook.py
+  commands/
+    adr-new.md
+    commit.md
+    custom-init.md
+    help-commands.md
+    issue.md
+    reviewpr.md
+    test.md
   hooks/
     check-no-env-files.cjs
     circuit-breaker.cjs
